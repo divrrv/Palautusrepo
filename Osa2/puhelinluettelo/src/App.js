@@ -7,14 +7,22 @@ const App = () => {
 
   const [newName, setNewName] = useState('')
 
-  const addPerson = (event) => {
-    event.preventDefault()
+  const savePerson = (event) => {
     const personObject = {
       name: newName,
-      id: newName
+      id: newName.toLowerCase()
     }
     setPersons(persons.concat(personObject))
     setNewName('')
+  }
+
+  const addPerson = (event) => {
+    event.preventDefault()
+    if (persons.find((person) => person.id === newName.toLowerCase())) {
+      window.alert(`${newName} is already included`)
+    } else {
+      savePerson()
+    }
   }
 
   const handlePersonChange = (event) => {
@@ -38,9 +46,7 @@ const App = () => {
             person={person}
           />)}
       </div>
-
     </div>
-
   )
 
 }
